@@ -141,7 +141,8 @@ L.HeatLayer = L.Class.extend({
                 x = Math.floor((p.x - offsetX) / cellSize) + 2;
                 y = Math.floor((p.y - offsetY) / cellSize) + 2;
 
-                k = (this._latlngs[i].alt || 1) * v;
+                alt = this._latlngs[i].alt || this._latlngs[i][2];
+                k = alt || (1 * v);
 
                 grid[y] = grid[y] || [];
                 cell = grid[y][x];
@@ -165,7 +166,7 @@ L.HeatLayer = L.Class.extend({
                         data.push([
                             Math.round(cell[0]),
                             Math.round(cell[1]),
-                            Math.min(cell[2], 1)
+                            Math.max(cell[2], 1)
                         ]);
                     }
                 }
